@@ -6,6 +6,25 @@ namespace summary {
         oneline:boolean
     }
 
+    const titleImage = img`
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffffff1ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        fffffffffffffffff11111ffffffffffffffffffffffffffffffff1fffff1fffffffffffffffffff
+        ffffffffffffffff11fff11ffffffffffffffffffffffffffffff1fffff1ffffffffffffffffffff
+        ffffffffffffffff11fff11fffffffffffffff111ffffffffffff1fffff1ffffffffffffffffffff
+        ffffffffffffffff1ffff11fffff11fffffff1ff11fffffffffff1fffff1ffffffffffffffffffff
+        ffffffffffffffff11fff1ffff11ff11fffff1fffffffffffffff1fff11111ffffffffffffffffff
+        ffffffffffffffff1f1111fff11fffff11fff1fffffff1fff1fff1fffff1ffffffffffffffffffff
+        ffffffffffffffff1ff11ffff1fffffff1fff11f11fff1fff1fff1fffff1ffffffffffffffffffff
+        ffffffffffffffff11ff11fff1ff111111ffff1111fff1fff1fff1fffff1ffffffffffffffffffff
+        fffffffffffffffff1fff11fff1ffffffffffffff1fff1fff1fff1fffff1ff1fffffffffffffffff
+        fffffffffffffffff1fffff1fff1111ff11ff1fff1fff1fff1fff1f1fff111ffffffffffffffffff
+        fffffffffffffffffffffffffffffff11ffff1111ffff1111f1fff11ffff11ffffffffffffffffff
+        ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    `
+
     const tickSignImage = img`
         . 1 1 1 1 1 . .
         1 . . . . 7 1 .
@@ -30,9 +49,20 @@ namespace summary {
     const LINE_SPRITE_KIND = SpriteKind.create()
 
     export function setUpSummaryScene(name:string, judgeSpriteImage:Image) {
-        tiles.setTilemap(tilemap`level`)
-        let judgeSprite = sprites.create(judgeSpriteImage)
-        tiles.placeOnTile(judgeSprite, tiles.getTileLocation(0, 0))
+        game.pushScene()
+        scene.setBackgroundColor(15)
+
+        let tempImage = image.create(160, 16)
+        tempImage.fill(15)
+        tempImage.drawTransparentImage(titleImage, 40, 0)
+        let titleSprite = sprites.create(tempImage, LINE_SPRITE_KIND)
+        titleSprite.y -= 40
+        
+        let judgeSprite = sprites.create(judgeSpriteImage, LINE_SPRITE_KIND)
+        judgeSprite.x = 140
+        judgeSprite.y = 100
+        judgeSprite.z = 1
+        
         judgeSprite.say(name)
     }
 
@@ -51,7 +81,6 @@ namespace summary {
             pause(1200) // line height / vy speed + 200 margin
         }
     }
-
     
     function textUpImpl(text:string, isCorrect:boolean, sign:number, oneline:boolean) {
 
@@ -60,15 +89,14 @@ namespace summary {
         spriteImage.print(text, 10, 1, 1, image.font8)
         spriteImage.drawTransparentImage(isCorrect?tickSignImage:crossSignImage, oneline?150:70, 1)
 
-        let sprite = sprites.create(spriteImage, LINE_SPRITE_KIND)
-        sprite.x += 40*sign
-        
-        
-        sprite.y = 140
-        sprite.vy = -20
+        let lineSprite = sprites.create(spriteImage, LINE_SPRITE_KIND)
+        lineSprite.x += 40*sign
+        lineSprite.y = 140
+        lineSprite.vy = -20
     }
 
     sprites.onOverlap(LINE_SPRITE_KIND, LINE_SPRITE_KIND, function(sprite: Sprite, otherSprite: Sprite) {
+        sprite.vy = 0
         otherSprite.vy = 0
     })
 
