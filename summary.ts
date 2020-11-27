@@ -47,7 +47,7 @@ namespace summary {
 
     const LINE_SPRITE_KIND = SpriteKind.create()
 
-    export function setUpSummaryScene(name:string, judgeSpriteImage:Image) {
+    export function setUpSummaryScene(name:string, logoSpriteImage:Image) {
         game.pushScene()
 
         sprites.onOverlap(LINE_SPRITE_KIND, LINE_SPRITE_KIND, function(sprite: Sprite, otherSprite: Sprite) {
@@ -60,11 +60,18 @@ namespace summary {
         tempImage.fill(15)
         tempImage.drawTransparentImage(titleImage, 40, 0)
         let titleSprite = sprites.create(tempImage, LINE_SPRITE_KIND)
-        titleSprite.y -= 35
+        titleSprite.y -= 51
+
+        let logoSprite = sprites.create(logoSpriteImage)
+        logoSprite.x = 12
+        logoSprite.y = 8
+        logoSprite.z = 1
         
-        let judgeSprite = sprites.create(judgeSpriteImage)
+        let judgeSprite = sprites.create(img`
+            f
+        `)
         judgeSprite.x = 150
-        judgeSprite.y = 110
+        judgeSprite.y = 0
         judgeSprite.z = 1
         
         judgeSprite.say(name)
