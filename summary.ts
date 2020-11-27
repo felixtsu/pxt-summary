@@ -24,7 +24,6 @@ namespace summary {
         fffffffffffffffffffffffffffffff11ffff1111ffff1111f1fff11ffff11ffffffffffffffffff
         ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
     `
-
     const tickSignImage = img`
         . 1 1 1 1 1 . .
         1 . . . . 7 1 .
@@ -50,17 +49,22 @@ namespace summary {
 
     export function setUpSummaryScene(name:string, judgeSpriteImage:Image) {
         game.pushScene()
+
+        sprites.onOverlap(LINE_SPRITE_KIND, LINE_SPRITE_KIND, function(sprite: Sprite, otherSprite: Sprite) {
+            sprite.vy = 0
+            otherSprite.vy = 0
+        })            
         scene.setBackgroundColor(15)
 
-        let tempImage = image.create(160, 16)
+        let tempImage = image.create(160, 20)
         tempImage.fill(15)
         tempImage.drawTransparentImage(titleImage, 40, 0)
         let titleSprite = sprites.create(tempImage, LINE_SPRITE_KIND)
-        titleSprite.y -= 40
+        titleSprite.y -= 35
         
-        let judgeSprite = sprites.create(judgeSpriteImage, LINE_SPRITE_KIND)
-        judgeSprite.x = 140
-        judgeSprite.y = 100
+        let judgeSprite = sprites.create(judgeSpriteImage)
+        judgeSprite.x = 150
+        judgeSprite.y = 110
         judgeSprite.z = 1
         
         judgeSprite.say(name)
@@ -94,10 +98,5 @@ namespace summary {
         lineSprite.y = 140
         lineSprite.vy = -20
     }
-
-    sprites.onOverlap(LINE_SPRITE_KIND, LINE_SPRITE_KIND, function(sprite: Sprite, otherSprite: Sprite) {
-        sprite.vy = 0
-        otherSprite.vy = 0
-    })
 
 }
