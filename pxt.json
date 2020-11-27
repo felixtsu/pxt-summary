@@ -8,7 +8,9 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "summary.ts"
+        "summary.ts",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
     ],
     "testFiles": [
         "test.ts"

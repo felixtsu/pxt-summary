@@ -29,6 +29,13 @@ namespace summary {
 
     const LINE_SPRITE_KIND = SpriteKind.create()
 
+    export function setUpSummaryScene(name:string, judgeSpriteImage:Image) {
+        tiles.setTilemap(tilemap`level`)
+        let judgeSprite = sprites.create(judgeSpriteImage)
+        tiles.placeOnTile(judgeSprite, tiles.getTileLocation(0, 0))
+        judgeSprite.say(name)
+    }
+
     export function textUp(problemResults:ProblemResult[]) {
         for (let i = 0; i < problemResults.length; i++) {
 
