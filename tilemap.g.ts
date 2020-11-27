@@ -1,5 +1,5 @@
 // Auto-generated code. Do not edit.
-namespace myTiles {
+namespace pxtSummaryTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const transparency16 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
@@ -22,7 +22,7 @@ namespace myTiles {
 . . . . . . . . . . 
 . . . . . . . . . . 
 . . . . . . . . . . 
-`, [myTiles.transparency16,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4], TileScale.Sixteen)
+`, [pxtSummaryTiles.transparency16,pxtSummaryTiles.tile1,pxtSummaryTiles.tile2,pxtSummaryTiles.tile3,pxtSummaryTiles.tile4], TileScale.Sixteen)
         }
         return null;
     })
